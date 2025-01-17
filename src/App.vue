@@ -4,14 +4,8 @@ import Image from "./components/blocks/Image.vue";
 </script>
 
 <template>
-  <div class="block">
+  <div class="bg-[whitesmoke]">
     <Text msg="Text" />
     <Image msg="Image" />
   </div>
 </template>
-
-<style scoped>
-.blocks {
-  background: white;
-}
-</style>
