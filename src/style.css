@@ -2,8 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: Inter;
+    src: url("./assets/fonts/Inter_18pt-Regular.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterThin;
+    src: url("./assets/fonts/Inter_18pt-Thin.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterLight;
+    src: url("./assets/fonts/Inter_18pt-Light.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterExtraLight;
+    src: url("./assets/fonts/Inter_18pt-ExtraLight.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterMedium;
+    src: url("./assets/fonts/Inter_18pt-Medium.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterBold;
+    src: url("./assets/fonts/Inter_18pt-Bold.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterSemiBold;
+    src: url("./assets/fonts/Inter_18pt-SemiBold.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterExtraBold;
+    src: url("./assets/fonts/Inter_18pt-ExtraBold.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: InterBlack;
+    src: url("./assets/fonts/Inter_18pt-Black.ttf");
+    font-weight: normal;
+    font-size: normal;
+    font-display: swap;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
   background: whitesmoke;
+  font-family: Inter, Arial, Helvetica, sans-serif;
 }
