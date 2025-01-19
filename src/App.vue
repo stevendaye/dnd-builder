@@ -85,24 +85,11 @@
           <p class="text-xs mt-1 mb-2">Select an image to replace</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
             <img
-              src="./assets/images/image-1.png"
+              v-for="img in predifinedImages"
+              :src="img"
               alt="Predifined Img 1"
               class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
-            />
-            <img
-              src="./assets/images/image-2.png"
-              alt="Predifined Img 2"
-              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
-            />
-            <img
-              src="./assets/images/image-3.png"
-              alt="Predifined Img 3"
-              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
-            />
-            <img
-              src="./assets/images/image-4.png"
-              alt="Predifined Img 3"
-              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
+              @click="updateImage(img)"
             />
           </div>
         </div>
@@ -146,9 +133,9 @@
                   placeholder="Edit text"
                 />
               </div>
-              <div v-if="element.type === 'image'" class="w-[35%]">
+              <div v-if="element.type === 'image'" class="w-[30%]">
                 <img
-                  src="./assets/images/image-4.png"
+                  :src="element.image"
                   alt="Predefined Img"
                   class="w-full object-cover"
                 />
@@ -181,10 +168,24 @@ interface ImageBlock {
 
 type Block = TextBlock | ImageBlock;
 
+const predifinedImages = [
+  "/image-1.png",
+  "/image-2.png",
+  "/image-3.png",
+  "/image-4.png",
+];
+
 const dragging = ref<boolean>(false);
 const list = ref<Block[]>([
   { id: 0, type: "text", text: "Newsletter", order: 1 },
   { id: 1, type: "text", text: "Campaigns", order: 2 },
-  { id: 2, type: "image", image: "./assets/images/image-1.png", order: 3 },
+  { id: 2, type: "image", image: "/image-1.png", order: 3 },
 ]);
+
+const updateImage = (selectedImage: string) => {
+  const imageBlock = list.value.find((block) => block.type === "image");
+  if (imageBlock && imageBlock.type === "image") {
+    imageBlock.image = selectedImage;
+  }
+};
 </script>
