@@ -42,6 +42,10 @@
           <h3 class="text-xs font-InterMedium px-2">Input</h3>
           <div
             class="flex items-center gap-2 w-full p-2 hover:bg-slate-200 transition duration-300 hover:cursor-pointer rounded-md"
+            role="button"
+            tabindex=""
+            @keydown="addTextBlock"
+            @click="addTextBlock"
           >
             <v-icon
               name="co-text"
@@ -248,6 +252,22 @@ const duplicateBlock = (index: number) => {
 };
 
 const onDragEnd = () => {
+  list.value.forEach((block, i) => {
+    block.order = i + 1;
+  });
+};
+
+/* In case all blocks are deleted */
+const addTextBlock = () => {
+  const newTextBlock: Block = {
+    id: ++uniqueIdCounter,
+    type: "text",
+    text: "Edit text here",
+    order: 1,
+  };
+
+  list.value.push(newTextBlock);
+
   list.value.forEach((block, i) => {
     block.order = i + 1;
   });
