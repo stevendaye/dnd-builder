@@ -68,6 +68,10 @@
           <h3 class="text-xs font-InterMedium px-2">Media</h3>
           <div
             class="flex items-center gap-2 w-full p-2 hover:bg-slate-200 transition duration-300 hover:cursor-pointer rounded-md"
+            role="button"
+            tabindex=""
+            @keydown="addImageBlock"
+            @click="addImageBlock"
           >
             <v-icon
               name="oi-image"
@@ -130,12 +134,12 @@
                 title="Hold & Drag"
               />
 
-              <div v-if="element.type === 'text'" class="w-[50%]">
+              <div v-if="element.type === 'text'" class="w-[75%]">
                 <input
                   type="text"
                   class="p-2 bg-[#F3F4F6] w-full"
                   v-model="element.text"
-                  placeholder="Edit text"
+                  placeholder="Campaigns | Email Marketing | Landing Pages | Automation etc.. "
                 />
               </div>
 
@@ -212,7 +216,7 @@ const predifinedImages = [
 
 const dragging = ref<boolean>(false);
 const list = ref<Block[]>([
-  { id: 0, type: "text", text: "Newsletter", order: 1 },
+  { id: 0, type: "text", text: "Edit text here", order: 1 },
   { id: 1, type: "image", image: "/image-1.png", order: 2 },
 ]);
 
@@ -267,6 +271,21 @@ const addTextBlock = () => {
   };
 
   list.value.push(newTextBlock);
+
+  list.value.forEach((block, i) => {
+    block.order = i + 1;
+  });
+};
+
+const addImageBlock = () => {
+  const newImageBlock: Block = {
+    id: ++uniqueIdCounter,
+    type: "image",
+    image: "/image-1.png",
+    order: 1,
+  };
+
+  list.value.push(newImageBlock);
 
   list.value.forEach((block, i) => {
     block.order = i + 1;
