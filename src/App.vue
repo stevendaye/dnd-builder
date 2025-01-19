@@ -113,7 +113,7 @@
           @start="dragging = true"
           @end="dragging = false"
         >
-          <template #item="{ element }">
+          <template #item="{ element, index }">
             <div
               :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm ${
                 element.type === 'text' ? 'items-center' : 'items-start'
@@ -133,12 +133,23 @@
                   placeholder="Edit text"
                 />
               </div>
+
               <div v-if="element.type === 'image'" class="w-[30%]">
                 <img
                   :src="element.image"
                   alt="Predefined Img"
                   class="w-full object-cover"
                 />
+              </div>
+
+              <div class="flex items-center flex-row-reverse ml-auto">
+                <button @click="removeBlock(index)">
+                  <v-icon
+                    name="md-delete-sharp"
+                    scale="1.2"
+                    class="cursor-pointer text-slate-500 hover:text-black transition duration-300"
+                  />
+                </button>
               </div>
             </div>
           </template>
@@ -187,5 +198,9 @@ const updateImage = (selectedImage: string) => {
   if (imageBlock && imageBlock.type === "image") {
     imageBlock.image = selectedImage;
   }
+};
+
+const removeBlock = (index: number) => {
+  list.value.splice(index, 1);
 };
 </script>

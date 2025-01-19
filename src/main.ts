@@ -6,7 +6,7 @@ import { OhVueIcon, addIcons } from "oh-vue-icons";
 import {
   CoText,
   OiImage,
-  MdDeleteoutlineRound,
+  MdDeleteSharp,
   HiDuplicate,
   MdDragindicatorRound,
   BiInfoCircleFill,
@@ -15,7 +15,7 @@ import {
 addIcons(
   CoText,
   OiImage,
-  MdDeleteoutlineRound,
+  MdDeleteSharp,
   HiDuplicate,
   MdDragindicatorRound,
   BiInfoCircleFill
