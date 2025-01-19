@@ -111,7 +111,7 @@
           handle=".handle"
           item-key="id"
           @start="dragging = true"
-          @end="dragging = false"
+          @end="onDragEnd"
         >
           <template #item="{ element, index }">
             <div
@@ -214,6 +214,11 @@ const updateImage = (selectedImage: string) => {
 
 const removeBlock = (index: number) => {
   list.value.splice(index, 1);
+
+  // Recalculate block orders after removal
+  list.value.forEach((block, i) => {
+    block.order = i + 1;
+  });
 };
 
 const duplicateBlock = (index: number) => {
@@ -222,15 +227,22 @@ const duplicateBlock = (index: number) => {
   const newDuplicatedBlock: Block = {
     ...blockToDuplicate,
     id: ++uniqueIdCounter,
-    order: blockToDuplicate.order + 1,
+    order: blockToDuplicate.order,
   };
 
   list.value.splice(index + 1, 0, newDuplicatedBlock);
 
-  for (let i = index + 2; i < list.value.length; i++) {
-    list.value[i].order = i + 1;
-  }
+  // Recalculate block orders after dupliaction
+  list.value.forEach((block, i) => {
+    block.order = i + 1;
+  });
 
   console.log("list:", list);
+};
+
+const onDragEnd = () => {
+  list.value.forEach((block, i) => {
+    block.order = i + 1;
+  });
 };
 </script>
