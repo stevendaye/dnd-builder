@@ -115,7 +115,7 @@
         >
           <template #item="{ element, index }">
             <div
-              :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm ${
+              :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm bg-white ${
                 element.type === 'text' ? 'items-center' : 'items-start'
               }`"
             >
@@ -123,6 +123,7 @@
                 name="md-dragindicator-round"
                 scale="1.5"
                 class="handle cursor-pointer"
+                title="Hold & Drag"
               />
 
               <div v-if="element.type === 'text'" class="w-[50%]">
@@ -142,12 +143,21 @@
                 />
               </div>
 
-              <div class="flex items-center flex-row-reverse ml-auto">
+              <div class="flex items-center flex-row-reverse gap-2 ml-auto">
                 <button @click="removeBlock(index)">
                   <v-icon
                     name="md-delete-sharp"
                     scale="1.2"
                     class="cursor-pointer text-slate-500 hover:text-black transition duration-300"
+                    title="Delete"
+                  />
+                </button>
+                <button @click="duplicateBlock(index)">
+                  <v-icon
+                    name="hi-duplicate"
+                    scale="1.2"
+                    class="cursor-pointer text-slate-500 hover:text-black transition duration-300"
+                    title="Duplicate"
                   />
                 </button>
               </div>
@@ -193,6 +203,8 @@ const list = ref<Block[]>([
   { id: 2, type: "image", image: "/image-1.png", order: 3 },
 ]);
 
+let uniqueIdCounter = list.value.length;
+
 const updateImage = (selectedImage: string) => {
   const imageBlock = list.value.find((block) => block.type === "image");
   if (imageBlock && imageBlock.type === "image") {
@@ -202,5 +214,23 @@ const updateImage = (selectedImage: string) => {
 
 const removeBlock = (index: number) => {
   list.value.splice(index, 1);
+};
+
+const duplicateBlock = (index: number) => {
+  const blockToDuplicate = list.value[index];
+
+  const newDuplicatedBlock: Block = {
+    ...blockToDuplicate,
+    id: ++uniqueIdCounter,
+    order: blockToDuplicate.order + 1,
+  };
+
+  list.value.splice(index + 1, 0, newDuplicatedBlock);
+
+  for (let i = index + 2; i < list.value.length; i++) {
+    list.value[i].order = i + 1;
+  }
+
+  console.log("list:", list);
 };
 </script>
