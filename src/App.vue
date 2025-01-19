@@ -83,21 +83,26 @@
         <div class="flex flex-col gap-1 mt-auto pt-3 p-2">
           <h3 class="text-xs font-InterMedium">Asset</h3>
           <p class="text-xs mt-1 mb-2">Select an image to replace</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
             <img
               src="./assets/images/image-1.png"
               alt="Predifined Img 1"
-              class="size-20 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
+              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
             />
             <img
               src="./assets/images/image-2.png"
               alt="Predifined Img 2"
-              class="size-20 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
+              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
             />
             <img
               src="./assets/images/image-3.png"
               alt="Predifined Img 3"
-              class="size-20 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
+              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
+            />
+            <img
+              src="./assets/images/image-4.png"
+              alt="Predifined Img 3"
+              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
             />
           </div>
         </div>
@@ -106,13 +111,64 @@
       <!-- Drop Zone -->
       <div class="w-[675px] h-[600px] bg-white rounded-md pt-3 p-2">
         <p
+          v-if="list.length === 0"
           class="text-sm font-InterBold text-center px-2 py-10 border-2 border-dashed rounded-md cursor-default"
         >
           Click on Text or Image element to add its draggable block
         </p>
+
+        <draggable
+          tag="ul"
+          :list="list"
+          class="list-group"
+          handle=".handle"
+          item-key="id"
+          @start="dragging = true"
+          @end="dragging = false"
+        >
+          <template #item="{ element }">
+            <div
+              class="flex items-center gap-2 border px-2 py-3 cursor-move rounded-sm"
+            >
+              <v-icon
+                name="md-dragindicator-round"
+                scale="1.5"
+                class="handle cursor-pointer"
+              />
+
+              <div v-if="element.type === 'text'" class="w-[50%]">
+                <input
+                  type="text"
+                  class="p-2 bg-[#F3F4F6] w-full"
+                  v-model="element.text"
+                  placeholder="Edit text"
+                />
+              </div>
+            </div>
+          </template>
+        </draggable>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+import draggable from "vuedraggable";
+
+interface TextBlock {
+  id: number;
+  type: "text";
+  text: string;
+  order: number;
+}
+
+type Block = TextBlock;
+
+const dragging = ref<boolean>(false);
+const list = ref<Block[]>([
+  { id: 0, type: "text", text: "Newsletter", order: 1 },
+  { id: 0, type: "text", text: "Campaigns", order: 2 },
+  { id: 0, type: "text", text: "Landing Pages", order: 3 },
+]);
+</script>
