@@ -35,7 +35,7 @@
     </div>
 
     <div class="flex justify-center mt-10 gap-2">
-      <!-- Aside Elements -->
+      <!-- Elements Section -->
       <div class="flex flex-col gap-1 w-64 bg-white rounded-md pt-3 p-2">
         <!-- Text Element -->
         <div class="flex flex-col gap-1">
@@ -95,7 +95,7 @@
         </div>
       </div>
 
-      <!-- Drop Zone -->
+      <!-- Drop Zone Section -->
       <div class="w-[675px] h-[600px] bg-white rounded-md pt-3 p-2">
         <p
           v-if="list.length === 0"
@@ -165,6 +165,16 @@
           </template>
         </draggable>
       </div>
+
+      <!-- Save Section -->
+      <div class="flex flex-col gap-1 w-44 bg-white rounded-md pt-3 p-2">
+        <button
+          class="w-full text-white bg-[#1dab65] py-2.5 hover:bg-green-600 rounded-md transition duration-300"
+          @click="exportToJSON"
+        >
+          Save
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -199,8 +209,7 @@ const predifinedImages = [
 const dragging = ref<boolean>(false);
 const list = ref<Block[]>([
   { id: 0, type: "text", text: "Newsletter", order: 1 },
-  { id: 1, type: "text", text: "Campaigns", order: 2 },
-  { id: 2, type: "image", image: "/image-1.png", order: 3 },
+  { id: 1, type: "image", image: "/image-1.png", order: 2 },
 ]);
 
 let uniqueIdCounter = list.value.length;
@@ -236,13 +245,16 @@ const duplicateBlock = (index: number) => {
   list.value.forEach((block, i) => {
     block.order = i + 1;
   });
-
-  console.log("list:", list);
 };
 
 const onDragEnd = () => {
   list.value.forEach((block, i) => {
     block.order = i + 1;
   });
+};
+
+const exportToJSON = () => {
+  const jsonFormat = JSON.stringify(list.value, null, 2);
+  console.log(jsonFormat);
 };
 </script>
