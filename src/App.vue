@@ -128,7 +128,9 @@
         >
           <template #item="{ element }">
             <div
-              class="flex items-center gap-2 border px-2 py-3 cursor-move rounded-sm"
+              :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm ${
+                element.type === 'text' ? 'items-center' : 'items-start'
+              }`"
             >
               <v-icon
                 name="md-dragindicator-round"
@@ -142,6 +144,13 @@
                   class="p-2 bg-[#F3F4F6] w-full"
                   v-model="element.text"
                   placeholder="Edit text"
+                />
+              </div>
+              <div v-if="element.type === 'image'" class="w-[35%]">
+                <img
+                  src="./assets/images/image-4.png"
+                  alt="Predefined Img"
+                  class="w-full object-cover"
                 />
               </div>
             </div>
@@ -163,12 +172,19 @@ interface TextBlock {
   order: number;
 }
 
-type Block = TextBlock;
+interface ImageBlock {
+  id: number;
+  type: "image";
+  image: string;
+  order: number;
+}
+
+type Block = TextBlock | ImageBlock;
 
 const dragging = ref<boolean>(false);
 const list = ref<Block[]>([
   { id: 0, type: "text", text: "Newsletter", order: 1 },
-  { id: 0, type: "text", text: "Campaigns", order: 2 },
-  { id: 0, type: "text", text: "Landing Pages", order: 3 },
+  { id: 1, type: "text", text: "Campaigns", order: 2 },
+  { id: 2, type: "image", image: "./assets/images/image-1.png", order: 3 },
 ]);
 </script>
