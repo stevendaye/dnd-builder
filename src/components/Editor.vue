@@ -41,41 +41,12 @@
               title="Hold & Drag"
             />
 
-            <!-- Text Block -->
-            <div v-if="element.type === 'text'" class="w-[75%]">
-              <input
-                type="text"
-                class="py-4 px-3 bg-[#F3F4F6] w-full"
-                v-model="element.text"
-                placeholder="Campaigns | Email Marketing | Landing Pages | Automation etc..."
-              />
-            </div>
-
-            <!-- Image Block -->
-            <div
-              v-if="element.type === 'image'"
-              class="w-[75%] flex flex-col gap-2"
-            >
-              <div class="w-[40%]">
-                <img
-                  :src="element.image"
-                  alt="Predefined Img"
-                  class="w-full object-cover"
-                />
-              </div>
-
-              <div class="flex items-center gap-2">
-                <img
-                  v-for="img in predifinedImages"
-                  :src="img"
-                  alt="Predifined Img 1"
-                  :class="`size-20 hover:border border-[#1dab65] rounded-sm hover:cursor-pointer p-1 ${
-                    element.image === img && 'border border-[#1dab65]'
-                  }`"
-                  @click="updateImage(index, img)"
-                />
-              </div>
-            </div>
+            <TextBlock :element="element" />
+            <ImageBlock
+              :index="index"
+              :element="element"
+              @update:image="updateImage"
+            />
 
             <!-- Action Buttons -->
             <div class="flex items-center flex-row-reverse gap-2 ml-auto">
@@ -107,6 +78,8 @@
 import draggable from "vuedraggable";
 import { ref, type PropType } from "vue";
 import type { Block } from "../types";
+import TextBlock from "./blocks/TextBlock.vue";
+import ImageBlock from "./blocks/ImageBlock.vue";
 
 const props = defineProps({
   uniqueIdCounter: {
@@ -130,13 +103,6 @@ const emit = defineEmits([
 ]);
 
 const dragging = ref<boolean>(false);
-
-const predifinedImages: string[] = [
-  "/image-1.png",
-  "/image-2.png",
-  "/image-3.png",
-  "/image-4.png",
-];
 
 const onDragEnd = () => {
   const updatedList = props.list.map((block, i) => ({
