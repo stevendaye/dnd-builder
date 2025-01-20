@@ -1,206 +1,242 @@
 <template>
-  <div class="flex flex-col gap-2 p-12 bg-[#D7F5E7] w-full h-[100vh]">
-    <!-- Header -->
-    <div class="max-w-[935px] mx-auto text-center">
-      <h1 class="text-4xl text-black font-InterBold">
+  <div class="flex flex-col overflow-hidden">
+    <div class="flex justify-start items-center w-full py-4 pl-5 bg-[#D7F5E7]">
+      <h1 class="text-[16px] text-black font-InterBold">
         Drag and Drop
         <span
           style="background-color: rgba(7, 155, 84, 0.5)"
-          class="text-white px-4 py-2 rounded-md"
+          class="text-white px-2 py-1 rounded-md"
         >
           Builder
         </span>
       </h1>
-
-      <p class="text-[16px] mt-10 mb-3">
-        Drag, rearrange, duplicate and delete blocks in the drop zone. Use the
-        drag handle icon
-        <v-icon name="md-dragindicator-round" scale="1.5" animation="pulse" />
-        to rearrange the order of blocks.
-      </p>
-
-      <p
-        class="text-sm font-InterMedium bg-black p-3 rounded-md text-white relative"
-      >
-        <v-icon
-          name="bi-info-circle-fill"
-          style="position: absolute; top: 5px; right: 5px"
-        />
-
-        In case you delete all blocks, you can always add new ones by clicking
-        on the <span class="font-InterBlack">Text</span> or
-        <span class="font-InterBlack">Image</span> elements by the left
-        hand-side.
-      </p>
     </div>
 
-    <div class="flex justify-center mt-10 gap-2">
-      <!-- Elements Section -->
-      <div class="flex flex-col gap-1 w-64 bg-white rounded-md pt-3 p-2">
-        <!-- Text Element -->
-        <div class="flex flex-col gap-1">
-          <h3 class="text-xs font-InterMedium px-2">Input</h3>
-          <div
-            class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
-            role="button"
-            tabindex=""
-            @keydown="addTextBlock"
-            @click="addTextBlock"
-          >
-            <v-icon
-              name="co-text"
-              scale="2"
-              style="
-                color: white;
-                padding: 5px;
-                background: #1dab65;
-                border-radius: 4px;
-              "
-            />
-            <p class="text-sm font-inter">Text Element</p>
-          </div>
-        </div>
-
-        <hr />
-
-        <!-- Image Element -->
-        <div class="flex flex-col gap-1">
-          <h3 class="text-xs font-InterMedium px-2">Media</h3>
-          <div
-            class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
-            role="button"
-            tabindex=""
-            @keydown="addImageBlock"
-            @click="addImageBlock"
-          >
-            <v-icon
-              name="oi-image"
-              scale="2"
-              style="
-                color: white;
-                padding: 5px;
-                background: #1dab65;
-                border-radius: 4px;
-              "
-            />
-            <p class="text-sm font-inter">Image Element</p>
-          </div>
-        </div>
-
-        <!-- Asset Images -->
-        <div class="flex flex-col gap-1 mt-auto pt-3 p-2">
-          <h3 class="text-xs font-InterMedium">Asset</h3>
-          <p class="text-xs mt-1 mb-2">Your working images</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
-            <img
-              v-for="img in assets"
-              :src="img"
-              alt="Predifined Img 1"
-              class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
-            />
-          </div>
-        </div>
-      </div>
-
-      <!-- Drop Zone Section -->
-      <div class="w-[675px] h-[600px] bg-white rounded-md pt-3 p-2">
-        <p
-          v-if="list.length === 0"
-          class="text-sm font-InterBold text-center px-2 py-10 border-2 border-dashed rounded-md cursor-default"
-        >
-          Click on Text or Image element to add its draggable block
-        </p>
-
-        <draggable
-          tag="ul"
-          :list="list"
-          class="list-group"
-          handle=".handle"
-          item-key="id"
-          @start="dragging = true"
-          @end="onDragEnd"
-        >
-          <template #item="{ element, index }">
+    <div class="flex bg-[#F1F5F8] w-full h-[calc(100vh-60px)] relative">
+      <div class="flex justify-between w-full">
+        <!-- Elements Section -->
+        <div class="flex flex-col gap-1 w-72 bg-white rounded-md p-3">
+          <!-- Text Element -->
+          <div class="flex flex-col gap-1">
+            <h3 class="text-xs font-InterMedium px-2">Input</h3>
             <div
-              :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm bg-white ${
-                element.type === 'text' ? 'items-center' : 'items-start'
-              }`"
+              class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
+              role="button"
+              tabindex=""
+              @keydown="addTextBlock"
+              @click="addTextBlock"
             >
               <v-icon
-                name="md-dragindicator-round"
+                name="co-text"
                 scale="1.5"
-                class="handle cursor-pointer"
-                title="Hold & Drag"
+                style="
+                  color: white;
+                  padding: 5px;
+                  background: #6772e6;
+                  border-radius: 4px;
+                "
               />
+              <p class="text-sm font-inter">Text Element</p>
+            </div>
+          </div>
 
-              <!-- Text Block -->
-              <div v-if="element.type === 'text'" class="w-[75%]">
-                <input
-                  type="text"
-                  class="py-4 px-3 bg-[#F3F4F6] w-full"
-                  v-model="element.text"
-                  placeholder="Campaigns | Email Marketing | Landing Pages | Automation etc..."
+          <hr />
+
+          <!-- Image Element -->
+          <div class="flex flex-col gap-1">
+            <h3 class="text-xs font-InterMedium px-2">Media</h3>
+            <div
+              class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
+              role="button"
+              tabindex=""
+              @keydown="addImageBlock"
+              @click="addImageBlock"
+            >
+              <v-icon
+                name="oi-image"
+                scale="1.5"
+                style="
+                  color: white;
+                  padding: 5px;
+                  background: #6772e6;
+                  border-radius: 4px;
+                "
+              />
+              <p class="text-sm font-inter">Image Element</p>
+            </div>
+          </div>
+
+          <!-- Asset Images -->
+          <div class="flex flex-col gap-1 mt-auto p-2 bg-[#D7F5E7] rounded-md">
+            <h3 class="text-sm font-InterMedium">Media Asset</h3>
+            <p class="text-xs mt-1 mb-2">Your recent working images</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <img
+                v-for="img in assets"
+                :src="img"
+                alt="Predifined Img 1"
+                class="size-32 hover:border-2 border-[#1dab65] rounded-md hover:cursor-select"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Drop Zone Section -->
+        <div class="w-[650px] h-screen bg-white overflow-y-auto border">
+          <p class="text-sm font-InterMedium bg-black p-3 text-white relative">
+            <v-icon
+              name="bi-info-circle-fill"
+              style="position: absolute; top: 5px; right: 5px"
+            />
+
+            In case you delete all blocks, you can always add new ones by
+            clicking on the <span class="font-InterBlack">Text</span> or
+            <span class="font-InterBlack">Image</span> elements by the left
+            hand-side.
+          </p>
+
+          <div class="rounded-md pt-5 pb-32 px-5">
+            <p
+              v-if="list.length === 0"
+              class="text-sm font-InterBold text-center px-2 py-10 border-2 border-dashed rounded-md cursor-default"
+            >
+              Click on Text or Image element to add its draggable block
+            </p>
+
+            <draggable
+              tag="ul"
+              :list="list"
+              class="list-group"
+              handle=".handle"
+              item-key="id"
+              @start="dragging = true"
+              @end="onDragEnd"
+            >
+              <template #item="{ element, index }">
+                <div
+                  :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm bg-white ${
+                    element.type === 'text' ? 'items-center' : 'items-start'
+                  }`"
+                >
+                  <v-icon
+                    name="md-dragindicator-round"
+                    scale="1.5"
+                    class="handle cursor-pointer hover:text-[#6772e6] transition duration-300"
+                    title="Hold & Drag"
+                  />
+
+                  <!-- Text Block -->
+                  <div v-if="element.type === 'text'" class="w-[75%]">
+                    <input
+                      type="text"
+                      class="py-4 px-3 bg-[#F3F4F6] w-full"
+                      v-model="element.text"
+                      placeholder="Campaigns | Email Marketing | Landing Pages | Automation etc..."
+                    />
+                  </div>
+
+                  <!-- Image Block -->
+                  <div
+                    v-if="element.type === 'image'"
+                    class="w-[75%] flex flex-col gap-2"
+                  >
+                    <div class="w-[40%]">
+                      <img
+                        :src="element.image"
+                        alt="Predefined Img"
+                        class="w-full object-cover"
+                      />
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                      <img
+                        v-for="img in predifinedImages"
+                        :src="img"
+                        alt="Predifined Img 1"
+                        :class="`size-20 hover:border border-[#1dab65] rounded-sm hover:cursor-pointer p-1 ${
+                          element.image === img && 'border border-[#1dab65]'
+                        }`"
+                        @click="updateImage(index, img)"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Action Buttons -->
+                  <div class="flex items-center flex-row-reverse gap-2 ml-auto">
+                    <button @click="removeBlock(index)">
+                      <v-icon
+                        name="md-delete-sharp"
+                        scale="1.2"
+                        class="cursor-pointer text-slate-500 hover:text-[#6772e6] transition duration-300"
+                        title="Delete"
+                      />
+                    </button>
+                    <button @click="duplicateBlock(index)">
+                      <v-icon
+                        name="hi-duplicate"
+                        scale="1.2"
+                        class="cursor-pointer text-slate-500 hover:text-[#6772e6] transition duration-300"
+                        title="Duplicate"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </template>
+            </draggable>
+          </div>
+        </div>
+
+        <!-- Utility Section -->
+        <div class="w-80 flex flex-col gap-1 bg-white rounded-md p-3">
+          <div class="flex flex-col gap-1 mb-3">
+            <div class="flex items-center gap-2">
+              <h2 class="font-semibold text-xs">Export to JSON</h2>
+              <v-icon name="md-savealt-outlined" />
+            </div>
+            <button
+              class="w-[42%] text-sm text-white bg-[#1dab65] py-2.5 hover:bg-green-600 rounded-[4px] transition duration-300"
+              @click="exportToJSON"
+            >
+              Save
+            </button>
+          </div>
+
+          <hr />
+
+          <div class="flex flex-col gap-2 mt-3">
+            <div class="flex items-center gap-2">
+              <h2 class="font-semibold text-sm">Help Guide</h2>
+              <v-icon name="md-livehelp" />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <div class="flex gap-2 items-center">
+                <v-icon
+                  name="md-dragindicator-round"
+                  scale="1.2"
+                  class="cursor-pointer text-[#6772e6]"
                 />
+                <span class="text-sm">Drag Handle (Rearrange)</span>
               </div>
-
-              <!-- Image Block -->
-              <div
-                v-if="element.type === 'image'"
-                class="w-[75%] flex flex-col gap-2"
-              >
-                <div class="w-[40%]">
-                  <img
-                    :src="element.image"
-                    alt="Predefined Img"
-                    class="w-full object-cover"
-                  />
-                </div>
-
-                <div class="flex items-center gap-2">
-                  <img
-                    v-for="img in predifinedImages"
-                    :src="img"
-                    alt="Predifined Img 1"
-                    :class="`size-20 hover:border border-[#1dab65] rounded-sm hover:cursor-pointer p-1 ${
-                      element.image === img && 'border border-[#1dab65]'
-                    }`"
-                    @click="updateImage(index, img)"
-                  />
-                </div>
+              <div class="flex gap-2 items-center">
+                <v-icon
+                  name="md-delete-sharp"
+                  scale="1.2"
+                  class="cursor-pointer text-[#6772e6]"
+                />
+                <span class="text-sm">Delete</span>
               </div>
-
-              <!-- Action Buttons -->
-              <div class="flex items-center flex-row-reverse gap-2 ml-auto">
-                <button @click="removeBlock(index)">
-                  <v-icon
-                    name="md-delete-sharp"
-                    scale="1.2"
-                    class="cursor-pointer text-slate-500 hover:text-black transition duration-300"
-                    title="Delete"
-                  />
-                </button>
-                <button @click="duplicateBlock(index)">
-                  <v-icon
-                    name="hi-duplicate"
-                    scale="1.2"
-                    class="cursor-pointer text-slate-500 hover:text-black transition duration-300"
-                    title="Duplicate"
-                  />
-                </button>
+              <div class="flex gap-2 items-center">
+                <v-icon
+                  name="hi-duplicate"
+                  scale="1.2"
+                  class="cursor-pointer text-[#6772e6]"
+                />
+                <span class="text-sm">Duplicate</span>
               </div>
             </div>
-          </template>
-        </draggable>
-      </div>
-
-      <!-- Save Section -->
-      <div class="flex flex-col gap-1 w-44 bg-white rounded-md pt-3 p-2">
-        <button
-          class="w-full text-white bg-[#1dab65] py-2.5 hover:bg-green-600 rounded-md transition duration-300"
-          @click="exportToJSON"
-        >
-          Save
-        </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

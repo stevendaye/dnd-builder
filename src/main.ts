@@ -10,6 +10,8 @@ import {
   HiDuplicate,
   MdDragindicatorRound,
   BiInfoCircleFill,
+  MdSavealtOutlined,
+  MdLivehelp,
 } from "oh-vue-icons/icons";
 
 addIcons(
@@ -18,7 +20,9 @@ addIcons(
   MdDeleteSharp,
   HiDuplicate,
   MdDragindicatorRound,
-  BiInfoCircleFill
+  BiInfoCircleFill,
+  MdSavealtOutlined,
+  MdLivehelp
 );
 
 const app = createApp(App);
