@@ -42,7 +42,7 @@ const emit = defineEmits(["update:list", "update:uniqueIdCounter"]);
 
 const addTextBlock = () => {
   const newTextBlock: Block = {
-    id: props.uniqueIdCounter + 1,
+    id: props.uniqueIdCounter,
     type: "text",
     text: "Edit text here",
     order: 1,

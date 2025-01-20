@@ -42,7 +42,7 @@ const emit = defineEmits(["update:list", "update:uniqueIdCounter"]);
 
 const addImageBlock = () => {
   const newImageBlock: Block = {
-    id: props.uniqueIdCounter + 1,
+    id: props.uniqueIdCounter,
     type: "image",
     image: "/image-1.png",
     order: 1,
