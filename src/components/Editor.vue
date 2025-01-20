@@ -34,12 +34,7 @@
               element.type === 'text' ? 'items-center' : 'items-start'
             }`"
           >
-            <v-icon
-              name="md-dragindicator-round"
-              scale="1.5"
-              class="handle cursor-pointer hover:text-[#6772e6] transition duration-300"
-              title="Hold & Drag"
-            />
+            <DragButton />
 
             <TextBlock :element="element" />
             <ImageBlock
@@ -48,24 +43,12 @@
               @update:image="updateImage"
             />
 
-            <!-- Action Buttons -->
             <div class="flex items-center flex-row-reverse gap-2 ml-auto">
-              <button @click="removeBlock(index)">
-                <v-icon
-                  name="md-delete-sharp"
-                  scale="1.2"
-                  class="cursor-pointer text-slate-500 hover:text-[#6772e6] transition duration-300"
-                  title="Delete"
-                />
-              </button>
-              <button @click="duplicateBlock(index)">
-                <v-icon
-                  name="hi-duplicate"
-                  scale="1.2"
-                  class="cursor-pointer text-slate-500 hover:text-[#6772e6] transition duration-300"
-                  title="Duplicate"
-                />
-              </button>
+              <RemoveButton :index="index" @update:remove="removeBlock" />
+              <DuplicateButton
+                :index="index"
+                @update:duplicate="duplicateBlock"
+              />
             </div>
           </div>
         </template>
@@ -80,6 +63,9 @@ import { ref, type PropType } from "vue";
 import type { Block } from "../types";
 import TextBlock from "./blocks/TextBlock.vue";
 import ImageBlock from "./blocks/ImageBlock.vue";
+import DragButton from "./buttons/DragButton.vue";
+import RemoveButton from "./buttons/RemoveButton.vue";
+import DuplicateButton from "./buttons/DuplicateButton.vue";
 
 const props = defineProps({
   uniqueIdCounter: {

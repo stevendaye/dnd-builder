@@ -34,19 +34,13 @@
           @update:list="updateList"
         />
 
-        <!-- Utility Section -->
         <div class="w-80 flex flex-col gap-1 bg-white rounded-md p-3">
           <div class="flex flex-col gap-1 mb-3">
             <div class="flex items-center gap-2">
               <h2 class="font-semibold text-xs">Export to JSON</h2>
               <v-icon name="md-savealt-outlined" />
             </div>
-            <button
-              class="w-[42%] text-sm text-white bg-[#1dab65] py-2.5 hover:bg-green-600 rounded-[4px] transition duration-300"
-              @click="exportToJSON"
-            >
-              Save
-            </button>
+            <SaveButton @update:export="exportToJSON" />
           </div>
 
           <hr />
@@ -100,6 +94,7 @@ import TextElement from "./components/elements/TextElement.vue";
 import ImageElement from "./components/elements/ImageElement.vue";
 import MediaAssets from "./components/elements/MediaAssets.vue";
 import Editor from "./components/Editor.vue";
+import SaveButton from "./components/buttons/SaveButton.vue";
 
 const assets = ref<string[]>(["/image-1.png"]);
 
