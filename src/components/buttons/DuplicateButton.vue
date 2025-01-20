@@ -3,7 +3,7 @@
     <v-icon
       name="hi-duplicate"
       scale="1.2"
-      class="cursor-pointer text-slate-500 hover:text-[#6772e6] transition duration-300"
+      class="cursor-pointer text-slate-500 hover:text-black transition duration-300"
       title="Duplicate"
     />
   </button>
