@@ -41,7 +41,7 @@
         <div class="flex flex-col gap-1">
           <h3 class="text-xs font-InterMedium px-2">Input</h3>
           <div
-            class="flex items-center gap-2 w-full p-2 hover:bg-slate-200 transition duration-300 hover:cursor-pointer rounded-md"
+            class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
             role="button"
             tabindex=""
             @keydown="addTextBlock"
@@ -67,7 +67,7 @@
         <div class="flex flex-col gap-1">
           <h3 class="text-xs font-InterMedium px-2">Media</h3>
           <div
-            class="flex items-center gap-2 w-full p-2 hover:bg-slate-200 transition duration-300 hover:cursor-pointer rounded-md"
+            class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
             role="button"
             tabindex=""
             @keydown="addImageBlock"
@@ -90,14 +90,13 @@
         <!-- Asset Images -->
         <div class="flex flex-col gap-1 mt-auto pt-3 p-2">
           <h3 class="text-xs font-InterMedium">Asset</h3>
-          <p class="text-xs mt-1 mb-2">Select an image to replace</p>
+          <p class="text-xs mt-1 mb-2">Your working images</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-1">
             <img
-              v-for="img in predifinedImages"
+              v-for="img in assets"
               :src="img"
               alt="Predifined Img 1"
               class="size-24 hover:border-2 border-[#1dab65] rounded-md hover:cursor-pointer"
-              @click="updateImage(img)"
             />
           </div>
         </div>
@@ -134,23 +133,43 @@
                 title="Hold & Drag"
               />
 
+              <!-- Text Block -->
               <div v-if="element.type === 'text'" class="w-[75%]">
                 <input
                   type="text"
-                  class="p-2 bg-[#F3F4F6] w-full"
+                  class="py-4 px-3 bg-[#F3F4F6] w-full"
                   v-model="element.text"
-                  placeholder="Campaigns | Email Marketing | Landing Pages | Automation etc.. "
+                  placeholder="Campaigns | Email Marketing | Landing Pages | Automation etc..."
                 />
               </div>
 
-              <div v-if="element.type === 'image'" class="w-[30%]">
-                <img
-                  :src="element.image"
-                  alt="Predefined Img"
-                  class="w-full object-cover"
-                />
+              <!-- Image Block -->
+              <div
+                v-if="element.type === 'image'"
+                class="w-[75%] flex flex-col gap-2"
+              >
+                <div class="w-[40%]">
+                  <img
+                    :src="element.image"
+                    alt="Predefined Img"
+                    class="w-full object-cover"
+                  />
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <img
+                    v-for="img in predifinedImages"
+                    :src="img"
+                    alt="Predifined Img 1"
+                    :class="`size-20 hover:border border-[#1dab65] rounded-sm hover:cursor-pointer p-1 ${
+                      element.image === img && 'border border-[#1dab65]'
+                    }`"
+                    @click="updateImage(index, img)"
+                  />
+                </div>
               </div>
 
+              <!-- Action Buttons -->
               <div class="flex items-center flex-row-reverse gap-2 ml-auto">
                 <button @click="removeBlock(index)">
                   <v-icon
@@ -207,14 +226,16 @@ interface ImageBlock {
 
 type Block = TextBlock | ImageBlock;
 
-const predifinedImages = [
+const dragging = ref<boolean>(false);
+
+const predifinedImages: string[] = [
   "/image-1.png",
   "/image-2.png",
   "/image-3.png",
   "/image-4.png",
 ];
+const assets = ref<string[]>(["/image-1.png"]);
 
-const dragging = ref<boolean>(false);
 const list = ref<Block[]>([
   { id: 0, type: "text", text: "Edit text here", order: 1 },
   { id: 1, type: "image", image: "/image-1.png", order: 2 },
@@ -222,10 +243,18 @@ const list = ref<Block[]>([
 
 let uniqueIdCounter = list.value.length;
 
-const updateImage = (selectedImage: string) => {
-  const imageBlock = list.value.find((block) => block.type === "image");
+const updateAssets = (img: string) => {
+  assets.value.push(img);
+};
+
+const updateImage = (index: number, selectedImage: string) => {
+  const imageBlock = list.value[index];
   if (imageBlock && imageBlock.type === "image") {
     imageBlock.image = selectedImage;
+  }
+
+  if (!assets.value.includes(selectedImage)) {
+    updateAssets(selectedImage);
   }
 };
 
