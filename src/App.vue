@@ -1,84 +1,28 @@
 <template>
   <div class="flex flex-col overflow-hidden">
-    <div class="flex justify-start items-center w-full py-4 pl-5 bg-[#D7F5E7]">
-      <h1 class="text-[16px] text-black font-InterBold">
-        Drag and Drop
-        <span
-          style="background-color: rgba(7, 155, 84, 0.5)"
-          class="text-white px-2 py-1 rounded-md"
-        >
-          Builder
-        </span>
-      </h1>
-    </div>
+    <Header />
 
     <div class="flex bg-[#F1F5F8] w-full h-[calc(100vh-60px)] relative">
       <div class="flex justify-between w-full">
-        <!-- Elements Section -->
+        <!-- Left Handside Section -->
         <div class="flex flex-col gap-1 w-72 bg-white rounded-md p-3">
-          <!-- Text Element -->
-          <div class="flex flex-col gap-1">
-            <h3 class="text-xs font-InterMedium px-2">Input</h3>
-            <div
-              class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
-              role="button"
-              tabindex=""
-              @keydown="addTextBlock"
-              @click="addTextBlock"
-            >
-              <v-icon
-                name="co-text"
-                scale="1.5"
-                style="
-                  color: white;
-                  padding: 5px;
-                  background: #6772e6;
-                  border-radius: 4px;
-                "
-              />
-              <p class="text-sm font-inter">Text Element</p>
-            </div>
-          </div>
+          <TextElement
+            :unique-id-counter="uniqueIdCounter"
+            :list="list"
+            @update:unique-id-counter="updateIdCounter"
+            @update:list="updatedList"
+          />
 
           <hr />
 
-          <!-- Image Element -->
-          <div class="flex flex-col gap-1">
-            <h3 class="text-xs font-InterMedium px-2">Media</h3>
-            <div
-              class="flex items-center gap-2 w-full p-2 hover:bg-[#F3F4F6] transition duration-300 hover:cursor-pointer rounded-md"
-              role="button"
-              tabindex=""
-              @keydown="addImageBlock"
-              @click="addImageBlock"
-            >
-              <v-icon
-                name="oi-image"
-                scale="1.5"
-                style="
-                  color: white;
-                  padding: 5px;
-                  background: #6772e6;
-                  border-radius: 4px;
-                "
-              />
-              <p class="text-sm font-inter">Image Element</p>
-            </div>
-          </div>
+          <ImageElement
+            :unique-id-counter="uniqueIdCounter"
+            :list="list"
+            @update:unique-id-counter="updateIdCounter"
+            @update:list="updatedList"
+          />
 
-          <!-- Asset Images -->
-          <div class="flex flex-col gap-1 mt-auto p-2 bg-[#D7F5E7] rounded-md">
-            <h3 class="text-sm font-InterMedium">Media Asset</h3>
-            <p class="text-xs mt-1 mb-2">Your recent working images</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <img
-                v-for="img in assets"
-                :src="img"
-                alt="Predifined Img 1"
-                class="size-32 hover:border-2 border-[#1dab65] rounded-md hover:cursor-select"
-              />
-            </div>
-          </div>
+          <MediaAssets :assets="assets" />
         </div>
 
         <!-- Drop Zone Section -->
@@ -246,21 +190,12 @@
 import { ref } from "vue";
 import draggable from "vuedraggable";
 
-interface TextBlock {
-  id: number;
-  type: "text";
-  text: string;
-  order: number;
-}
+import type { Block } from "./types";
 
-interface ImageBlock {
-  id: number;
-  type: "image";
-  image: string;
-  order: number;
-}
-
-type Block = TextBlock | ImageBlock;
+import Header from "./components/layout/Header.vue";
+import TextElement from "./components/elements/TextElement.vue";
+import ImageElement from "./components/elements/ImageElement.vue";
+import MediaAssets from "./components/elements/MediaAssets.vue";
 
 const dragging = ref<boolean>(false);
 
@@ -277,8 +212,18 @@ const list = ref<Block[]>([
   { id: 1, type: "image", image: "/image-1.png", order: 2 },
 ]);
 
-let uniqueIdCounter = list.value.length;
+let uniqueIdCounter = ref<number>(list.value.length);
 
+// Emitted Events
+const updateIdCounter = (newId: number) => {
+  uniqueIdCounter.value = newId;
+};
+
+const updatedList = (newList: Block[]) => {
+  list.value = newList;
+};
+
+// Parents Functions
 const updateAssets = (img: string) => {
   assets.value.push(img);
 };
@@ -308,7 +253,7 @@ const duplicateBlock = (index: number) => {
 
   const newDuplicatedBlock: Block = {
     ...blockToDuplicate,
-    id: ++uniqueIdCounter,
+    id: uniqueIdCounter.value,
     order: blockToDuplicate.order,
   };
 
@@ -321,37 +266,6 @@ const duplicateBlock = (index: number) => {
 };
 
 const onDragEnd = () => {
-  list.value.forEach((block, i) => {
-    block.order = i + 1;
-  });
-};
-
-/* In case all blocks are deleted */
-const addTextBlock = () => {
-  const newTextBlock: Block = {
-    id: ++uniqueIdCounter,
-    type: "text",
-    text: "Edit text here",
-    order: 1,
-  };
-
-  list.value.push(newTextBlock);
-
-  list.value.forEach((block, i) => {
-    block.order = i + 1;
-  });
-};
-
-const addImageBlock = () => {
-  const newImageBlock: Block = {
-    id: ++uniqueIdCounter,
-    type: "image",
-    image: "/image-1.png",
-    order: 1,
-  };
-
-  list.value.push(newImageBlock);
-
   list.value.forEach((block, i) => {
     block.order = i + 1;
   });
