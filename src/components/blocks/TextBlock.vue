@@ -11,11 +11,11 @@
 
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type { TextBlock } from "../../types";
+import type { TextBlockType } from "../../types";
 
 defineProps({
   element: {
-    type: Object as PropType<TextBlock>,
+    type: Object as PropType<TextBlockType>,
     required: true,
   },
 });

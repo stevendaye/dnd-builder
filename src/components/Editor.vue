@@ -129,6 +129,8 @@ const updateImage = (blockId: number, selectedImage: string) => {
   const updatedList = [...props.list];
   const imageBlock = updatedList[blockId];
 
+  if (!imageBlock) return;
+
   if (imageBlock && imageBlock.type === "image") {
     imageBlock.image = selectedImage;
     emit("update:list", updatedList);
@@ -151,8 +153,10 @@ const removeBlock = (index: number) => {
 };
 
 const duplicateBlock = (index: number) => {
-  const blockToDuplicate = props.list[index];
   const updatedList = [...props.list];
+  const blockToDuplicate = props.list[index];
+
+  if (!blockToDuplicate) return;
 
   const duplicatedBlock: Block = {
     ...blockToDuplicate,

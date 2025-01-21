@@ -3,7 +3,7 @@
     <div class="size-[35%] relative hover:cursor-pointer group">
       <div
         v-if="element.image"
-        class="hidden absolute top-0 left-0 w-full h-full text-xs sm:text-[16px] text-white rounded-md group-hover:block text-center"
+        class="image-overlay hidden absolute top-0 left-0 w-full h-full text-xs sm:text-[16px] text-white rounded-md group-hover:block text-center"
         style="background: rgba(0, 0, 0, 0.7)"
         role="button"
         tabindex=""
@@ -24,7 +24,7 @@
 
       <div
         v-else
-        class="w-full h-full border rounded-md relative text-center"
+        class="image-default w-full h-full border rounded-md relative text-center"
         role="button"
         tabindex=""
         @keydown="openModal(blockId, true)"
@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import type { PropType } from "vue";
-import type { ImageBlock } from "../../types";
+import type { ImageBlockType } from "../../types";
 
 defineProps({
   blockId: {
@@ -49,7 +49,7 @@ defineProps({
     required: true,
   },
   element: {
-    type: Object as PropType<ImageBlock>,
+    type: Object as PropType<ImageBlockType>,
     required: true,
   },
 });
