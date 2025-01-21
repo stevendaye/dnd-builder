@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "dependencies": {
     "oh-vue-icons": "^1.0.0-rc3",
@@ -19,6 +20,7 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
     "autoprefixer": "^10.4.20",
+    "jsdom": "^26.0.0",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.6.2",
