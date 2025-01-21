@@ -147,4 +147,41 @@ describe("Editor Component", () => {
     const placeholder = imageBlock.find("img[src='/image-placeholder.png']");
     expect(placeholder.exists()).toBe(true);
   });
+
+  it("opens the modal when clicking on the placeholder image", async () => {
+    const wrapper = factory({
+      blockId: 1,
+      element: {
+        type: "image",
+        image: "",
+      },
+    });
+
+    await wrapper.find(".image-default").trigger("click");
+
+    expect(wrapper.emitted("update:modal")).toBeTruthy();
+    expect(wrapper.emitted("update:modal")?.[0]).toEqual([
+      { blockId: 1, open: true },
+    ]);
+  });
+
+  it("opens the modal when clicking on the 'Replace image' overlay to change image", async () => {
+    const wrapper = factory({
+      blockId: 1,
+      element: {
+        type: "image",
+        image: "/image-1.png",
+      },
+    });
+
+    const imageOverlay = wrapper.find(".image-overlay");
+    expect(imageOverlay.exists()).toBe(true);
+
+    await imageOverlay.trigger("click");
+
+    expect(wrapper.emitted("update:modal")).toBeTruthy();
+    expect(wrapper.emitted("update:modal")?.[0]).toEqual([
+      { blockId: 1, open: true },
+    ]);
+  });
 });
