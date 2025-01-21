@@ -34,28 +34,32 @@ In case you would prefer to run test cases individually. Here are the different 
 At the root of the project in dnd-builder. Run the following commands
 
 - **npx vitest tests/components/elements/TextElement.test.ts**
-  -- renders the TextElement component
+
+  - renders the TextElement component
 
 - **npx vitest tests/components/elements/ImageElement.test.ts**
-  -- renders the ImageElement component
+
+  - renders the ImageElement component
 
 - **npx vitest run tests/App.test.ts**
-  -- adds a new text block to the list when TextElement is clicked
-  -- adds a new image block to the list when ImageElement is clicked
-  -- edits text in the TextBlock component
-  -- exports the list to JSON format when SaveButton is clicked
+
+  - adds a new text block to the list when TextElement is clicked
+  - adds a new image block to the list when ImageElement is clicked
+  - edits text in the TextBlock component
+  - exports the list to JSON format when SaveButton is clicked
 
 - **npx vitest run tests/components/Editor.test.ts**
-  -- renders 2 blocks when the app loads: TextBlock and ImageBlock components
-  -- removes a block and emits the updated list
-  -- duplicates a block and emits the updated list
-  -- renders ImageBlock with default image placeholder
-  -- opens the modal when clicking on the placeholder image
-  -- opens the modal when clicking on the 'Replace image' overlay to change block's image
+
+  - renders 2 blocks when the app loads: TextBlock and ImageBlock components
+  - removes a block and emits the updated list
+  - duplicates a block and emits the updated list
+  - renders ImageBlock with default image placeholder
+  - opens the modal when clicking on the placeholder image
+  - opens the modal when clicking on the 'Replace image' overlay to change block's image
 
 - **npx vitest tests/components/modals/ImagePickerModal.test.ts**
-  -- updates block's image after selecting a new image from the opened modal
-  -- updates block's image after a new image is selected from the opened modal
+  - updates block's image after selecting a new image from the opened modal
+  - updates block's image after a new image is selected from the opened modal
 
 ## Completed Requirement
 
@@ -74,8 +78,11 @@ All requirements for this project have been implemented. Nevertheless, because I
 
 - **Add text block**: Located on the left hand side section, when clicked, this adds a new block of type _text_ to the list of blocks
 - **Add Image block**: Located on the left hand side section, when clicked. this adds a new block of type _image_ to the list of blocks
-  I implemented these 2 elements because I thought it would be great if after deleting all blocks form the editor, the user can add new blocks without reloading the page
+
+  - I implemented these 2 elements because I thought it would be great if after deleting all blocks form the editor, the user can add new blocks without reloading the page
 
 - **Media Assets**: I got inspiration of MailerLite's image upload modal. This represents a container of all used or applied images within the app. Think of it like after selecting a new image to the image block, that image is then stored in the media assets container to show you your recents working images that have been used so far
 
-- **Help Guide**: Located on the right hand section, this represents a section that serves as a guide on how to use the application. It tells the user how to _drag_, _duplicate_ and _delete_ blocks. It lists each icon with their description.
+- **Help Guide**: Located on the right hand section, this represents a section that serves as a guide on how to use the application. It tells the user how to _drag_, _rearrange_, _duplicate_ and _delete_ blocks. It lists each icon with their description.
+
+### README: To change an image in an image block, hover over the desired image, you will then see the overlay with the text _Change image_. Click to open the image modal again
