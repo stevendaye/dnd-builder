@@ -1,59 +1,69 @@
 <template>
-  <div class="w-[650px] h-screen bg-white overflow-y-auto border">
-    <p class="text-sm font-InterMedium bg-black p-3 text-white relative">
-      <v-icon
-        name="bi-info-circle-fill"
-        style="position: absolute; top: 5px; right: 5px"
-      />
+  <div class="flex flex-col">
+    <div class="w-[650px] h-screen bg-white overflow-y-auto border">
+      <p class="text-sm font-InterMedium bg-black p-3 text-white relative">
+        <v-icon
+          name="bi-info-circle-fill"
+          style="position: absolute; top: 5px; right: 5px"
+        />
 
-      In case you delete all blocks, you can always add new ones by clicking on
-      the <span class="font-InterBlack">Text</span> or
-      <span class="font-InterBlack">Image</span> elements by the left hand-side.
-    </p>
-
-    <div class="rounded-md pt-5 pb-32 px-5">
-      <p
-        v-if="list.length === 0"
-        class="text-sm font-InterBold text-center px-2 py-10 border-2 border-dashed rounded-md cursor-default"
-      >
-        Click on Text or Image element to add its draggable block
+        In case you delete all blocks, you can always add new ones by clicking
+        on the <span class="font-InterBlack">Text</span> or
+        <span class="font-InterBlack">Image</span> elements by the left
+        hand-side.
       </p>
 
-      <draggable
-        tag="ul"
-        :list="list"
-        class="list-group"
-        handle=".handle"
-        item-key="id"
-        @start="dragging = true"
-        @end="onDragEnd"
-      >
-        <template #item="{ element, index }">
-          <div
-            :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm bg-white ${
-              element.type === 'text' ? 'items-center' : 'items-start'
-            }`"
-          >
-            <DragButton />
+      <div class="rounded-md pt-5 pb-32 px-5">
+        <p
+          v-if="list.length === 0"
+          class="text-sm font-InterBold text-center px-2 py-10 border-2 border-dashed rounded-md cursor-default"
+        >
+          Click on Text or Image element to add its draggable block
+        </p>
 
-            <TextBlock :element="element" />
-            <ImageBlock
-              :index="index"
-              :element="element"
-              @update:image="updateImage"
-            />
+        <draggable
+          tag="ul"
+          :list="list"
+          class="list-group"
+          handle=".handle"
+          item-key="id"
+          @start="dragging = true"
+          @end="onDragEnd"
+        >
+          <template #item="{ element, index }">
+            <div
+              :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm bg-white ${
+                element.type === 'text' ? 'items-center' : 'items-start'
+              }`"
+            >
+              <DragButton />
 
-            <div class="flex items-center flex-row-reverse gap-2 ml-auto">
-              <RemoveButton :index="index" @update:remove="removeBlock" />
-              <DuplicateButton
-                :index="index"
-                @update:duplicate="duplicateBlock"
+              <TextBlock :element="element" />
+              <ImageBlock
+                :block-id="index"
+                :element="element"
+                @update:modal="updateModal"
               />
+
+              <div class="flex items-center flex-row-reverse gap-2 ml-auto">
+                <RemoveButton :index="index" @update:remove="removeBlock" />
+                <DuplicateButton
+                  :index="index"
+                  @update:duplicate="duplicateBlock"
+                />
+              </div>
             </div>
-          </div>
-        </template>
-      </draggable>
+          </template>
+        </draggable>
+      </div>
     </div>
+
+    <ImagePickerModal
+      v-if="isModalOpen"
+      :block-id="activeBlockId"
+      @update:image="updateImage"
+      @update:modal="updateModal"
+    />
   </div>
 </template>
 
@@ -66,6 +76,7 @@ import ImageBlock from "./blocks/ImageBlock.vue";
 import DragButton from "./buttons/DragButton.vue";
 import RemoveButton from "./buttons/RemoveButton.vue";
 import DuplicateButton from "./buttons/DuplicateButton.vue";
+import ImagePickerModal from "./modals/ImagePickerModal.vue";
 
 const props = defineProps({
   uniqueIdCounter: {
@@ -89,6 +100,13 @@ const emit = defineEmits([
 ]);
 
 const dragging = ref<boolean>(false);
+const isModalOpen = ref<boolean>(false);
+const activeBlockId = ref<number>(0);
+
+const updateModal = (data: { blockId: number; open: boolean }) => {
+  isModalOpen.value = data.open;
+  activeBlockId.value = data.blockId;
+};
 
 const onDragEnd = () => {
   const updatedList = props.list.map((block, i) => ({
@@ -103,9 +121,9 @@ const updateAssets = (img: string) => {
   emit("update:assets", updatedAssets);
 };
 
-const updateImage = (index: number, selectedImage: string) => {
+const updateImage = (blockId: number, selectedImage: string) => {
   const updatedList = [...props.list];
-  const imageBlock = updatedList[index];
+  const imageBlock = updatedList[blockId];
 
   if (imageBlock && imageBlock.type === "image") {
     imageBlock.image = selectedImage;

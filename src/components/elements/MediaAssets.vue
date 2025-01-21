@@ -7,7 +7,7 @@
         v-for="img in assets"
         :src="img"
         alt="Predifined Img 1"
-        class="size-32 hover:border-2 border-[#1dab65] rounded-md hover:cursor-select"
+        class="size-32 rounded-md hover:cursor-select"
       />
     </div>
   </div>

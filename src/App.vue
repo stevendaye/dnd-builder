@@ -1,10 +1,9 @@
 <template>
-  <div class="flex flex-col overflow-hidden">
+  <div class="flex flex-col overflow-hidden relative">
     <Header />
 
-    <div class="flex bg-[#F1F5F8] w-full h-[calc(100vh-60px)] relative">
+    <div class="flex bg-[#F1F5F8] w-full h-[calc(100vh-60px)]">
       <div class="flex justify-between w-full">
-        <!-- Left Handside Section -->
         <div class="flex flex-col gap-1 w-72 bg-white rounded-md p-3">
           <TextElement
             :unique-id-counter="uniqueIdCounter"
@@ -65,11 +64,11 @@ import Editor from "./components/Editor.vue";
 import SaveButton from "./components/buttons/SaveButton.vue";
 import HelpGuide from "./components/commons/HelpGuide.vue";
 
-const assets = ref<string[]>(["/image-1.png"]);
+const assets = ref<string[]>([]);
 
 const list = ref<Block[]>([
   { id: 0, type: "text", text: "Edit text here", order: 1 },
-  { id: 1, type: "image", image: "/image-1.png", order: 2 },
+  { id: 1, type: "image", image: "", order: 2 },
 ]);
 
 let uniqueIdCounter = ref<number>(list.value.length);

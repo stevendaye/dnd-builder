@@ -3,7 +3,7 @@
     <h3 class="text-xs font-InterMedium px-2">Media</h3>
     <AddBlockButton
       :icon="`oi-image`"
-      :block-type="`Image Element`"
+      :block-type="`Add Image Element`"
       @update:add="addImageBlock"
     />
   </div>
@@ -31,7 +31,7 @@ const addImageBlock = () => {
   const newImageBlock: Block = {
     id: props.uniqueIdCounter,
     type: "image",
-    image: "/image-1.png",
+    image: "",
     order: 1,
   };
 

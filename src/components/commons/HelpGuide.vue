@@ -20,7 +20,7 @@
           scale="1.2"
           class="cursor-default text-[#6772e6]"
         />
-        <span class="text-sm">Delete</span>
+        <span class="text-sm">Delete Block</span>
       </div>
       <div class="flex gap-2 items-center">
         <v-icon
@@ -28,7 +28,15 @@
           scale="1.2"
           class="cursor-default text-[#6772e6]"
         />
-        <span class="text-sm">Duplicate</span>
+        <span class="text-sm">Duplicate Block</span>
+      </div>
+      <div class="flex gap-2 items-center">
+        <v-icon
+          name="oi-image"
+          scale="1.2"
+          class="cursor-default text-[#6772e6]"
+        />
+        <span class="text-sm">Click or hover block's image </span>
       </div>
     </div>
   </div>

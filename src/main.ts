@@ -12,6 +12,7 @@ import {
   BiInfoCircleFill,
   MdSavealtOutlined,
   MdLivehelp,
+  IoClose,
 } from "oh-vue-icons/icons";
 
 addIcons(
@@ -22,7 +23,8 @@ addIcons(
   MdDragindicatorRound,
   BiInfoCircleFill,
   MdSavealtOutlined,
-  MdLivehelp
+  MdLivehelp,
+  IoClose
 );
 
 const app = createApp(App);
