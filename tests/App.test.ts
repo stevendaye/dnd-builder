@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { ComponentPublicInstance } from "vue";
 
 import App from "../src/App.vue";
+import SaveButton from "../src/components/buttons/SaveButton.vue";
 
 type AppInstance = ComponentPublicInstance<{
   list: {
@@ -81,5 +82,34 @@ describe("App Component", () => {
 
     // blockId starts from 0
     expect(wrapper.vm.uniqueIdCounter).toBe(wrapper.vm.list.length - 1);
+  });
+
+  it("exports the list to JSON format when SaveButton is clicked", async () => {
+    const wrapper = mount(App, {
+      data() {
+        return {
+          list: [] as {
+            id: number;
+            type: string;
+            text?: string;
+            image?: string;
+            order: number;
+          }[],
+          uniqueIdCounter: 0,
+        };
+      },
+    }) as VueWrapper<AppInstance>;
+
+    const saveButton = wrapper.findComponent(SaveButton);
+
+    const consoleSpy = vi.spyOn(console, "log");
+
+    await saveButton.vm.$emit("update:export");
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      JSON.stringify(wrapper.vm.list, null, 2)
+    );
+
+    consoleSpy.mockRestore();
   });
 });
