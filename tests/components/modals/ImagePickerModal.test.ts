@@ -10,7 +10,7 @@ describe("ImagePickerModal Component", () => {
     });
   };
 
-  it("updates the image after selecting a new image from the opened modal", async () => {
+  it("updates block's image after a new image is selected from the opened modal", async () => {
     const wrapper = factory({
       blockId: 1,
     });

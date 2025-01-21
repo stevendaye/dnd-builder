@@ -100,7 +100,7 @@ describe("App Component", () => {
       },
     });
 
-    const input = wrapper.find("input");
+    const input = wrapper.find("textarea");
     await input.setValue(updatedText);
 
     expect(input.element.value).toBe(updatedText);

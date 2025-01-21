@@ -16,7 +16,7 @@ describe("Editor Component", () => {
     });
   };
 
-  it("renders TextBlock and ImageBlock components", () => {
+  it("renders 2 blocks when the app loads: TextBlock and ImageBlock components ", () => {
     const initialList: Block[] = [
       {
         id: 0,
@@ -125,7 +125,7 @@ describe("Editor Component", () => {
     expect(emittedUniqueIdCounter[0][0]).toBe(4);
   });
 
-  it("renders ImageBlock with default placeholder", () => {
+  it("renders ImageBlock with default image placeholder", () => {
     const initialList: Block[] = [
       { id: 1, type: "image", image: "", order: 1 } as ImageBlockType,
     ];
@@ -165,7 +165,7 @@ describe("Editor Component", () => {
     ]);
   });
 
-  it("opens the modal when clicking on the 'Replace image' overlay to change image", async () => {
+  it("opens the modal when clicking on the 'Replace image' overlay to change block's image", async () => {
     const wrapper = factory({
       blockId: 1,
       element: {
