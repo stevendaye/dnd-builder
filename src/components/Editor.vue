@@ -1,7 +1,11 @@
 <template>
   <div class="flex flex-col">
-    <div class="w-[650px] h-screen bg-white overflow-y-auto border">
-      <p class="text-sm font-InterMedium bg-black p-3 text-white relative">
+    <div
+      class="w-full md:max-w-[650px] h-screen bg-white overflow-y-auto border"
+    >
+      <p
+        class="text-xs lg:text-sm font-InterMedium bg-black p-3 text-white relative"
+      >
         <v-icon
           name="bi-info-circle-fill"
           style="position: absolute; top: 5px; right: 5px"

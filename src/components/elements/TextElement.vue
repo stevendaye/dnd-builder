@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-1">
-    <h3 class="text-xs font-InterMedium px-2">Input</h3>
+    <h3 class="text-xs font-InterMedium px-2 hidden lg:block">Input</h3>
     <AddBlockButton
       :icon="`co-text`"
       :block-type="`Add Text Element`"

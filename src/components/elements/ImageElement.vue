@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-1">
-    <h3 class="text-xs font-InterMedium px-2">Media</h3>
+    <h3 class="text-xs font-InterMedium px-2 hidden lg:block">Media</h3>
     <AddBlockButton
       :icon="`oi-image`"
       :block-type="`Add Image Element`"

@@ -4,18 +4,20 @@
     style="background: rgba(0, 0, 0, 0.9)"
   >
     <div
-      class="w-[45%] h-auto flex flex-col justify-center items-center bg-white rounded-md px-5 py-10 gap-4 relative"
+      class="w-[85%] lg:w-[50%] h-auto flex flex-col justify-center items-center bg-white rounded-md px-5 py-10 gap-4 relative"
     >
       <CloseButton @update:modal="closeModal" />
 
-      <h1 class="text-2xl font-InterBold text-center">Select Image</h1>
-      <h3 class="text-sm w-[65%] text-center">
+      <h1 class="text-xl md:text-2xl font-InterBold text-center">
+        Select Image
+      </h1>
+      <h3 class="text-sm w-full md:w-[65%] text-center">
         You need to select an image below in order to update the imgae of the
         block you selected
       </h3>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div v-for="img in predifinedImages" class="size-52">
+      <div class="grid grid-cols-2 gap-4">
+        <div v-for="img in predifinedImages" class="max-w-[208px]">
           <img
             :src="img"
             alt="Predifined Img 1"

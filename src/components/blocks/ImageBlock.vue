@@ -3,7 +3,7 @@
     <div class="size-[35%] relative hover:cursor-pointer group">
       <div
         v-if="element.image"
-        class="hidden absolute top-0 left-0 w-full h-full text-[16px] text-white rounded-md group-hover:block"
+        class="hidden absolute top-0 left-0 w-full h-full text-xs sm:text-[16px] text-white rounded-md group-hover:block text-center"
         style="background: rgba(0, 0, 0, 0.7)"
         role="button"
         tabindex=""
@@ -21,6 +21,7 @@
         alt="Predefined Media"
         class="w-full h-full object-cover rounded-md"
       />
+
       <div
         v-else
         class="w-full h-full border rounded-md relative text-center"
@@ -29,8 +30,8 @@
         @keydown="openModal(blockId, true)"
         @click="openModal(blockId, true)"
       >
-        <h4 class="text-xs text-slate-600 px-4 absolute bottom-2">
-          Click here to pick an image
+        <h4 class="text-xs text-slate-600 p-0 lg:px-4 absolute bottom-2 w-full">
+          Click here <span class="hidden lg:block">to pick an image</span>
         </h4>
         <img src="/image-placeholder.png" class="w-full h-full" />
       </div>

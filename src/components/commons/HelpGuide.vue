@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col gap-2 mt-3">
+  <div class="flex flex-col gap-2 mt-3 text-xs lg:text-sm">
     <div class="flex items-center gap-2">
-      <h2 class="font-semibold text-sm">Help Guide</h2>
+      <h2 class="font-semibold">Help Guide</h2>
       <v-icon name="md-livehelp" />
     </div>
 
@@ -12,7 +12,7 @@
           scale="1.2"
           class="cursor-default text-[#6772e6]"
         />
-        <span class="text-sm">Drag Handle (Rearrange)</span>
+        <span class="font-InterMedium">Drag Handle (Rearrange)</span>
       </div>
       <div class="flex gap-2 items-center">
         <v-icon
@@ -20,7 +20,7 @@
           scale="1.2"
           class="cursor-default text-[#6772e6]"
         />
-        <span class="text-sm">Delete Block</span>
+        <span class="font-InterMedium">Delete Block</span>
       </div>
       <div class="flex gap-2 items-center">
         <v-icon
@@ -28,7 +28,7 @@
           scale="1.2"
           class="cursor-default text-[#6772e6]"
         />
-        <span class="text-sm">Duplicate Block</span>
+        <span class="font-InterMedium">Duplicate Block</span>
       </div>
       <div class="flex gap-2 items-center">
         <v-icon
@@ -36,7 +36,7 @@
           scale="1.2"
           class="cursor-default text-[#6772e6]"
         />
-        <span class="text-sm">Click or hover block's image </span>
+        <span class="font-InterMedium">Click or hover block's image </span>
       </div>
     </div>
   </div>

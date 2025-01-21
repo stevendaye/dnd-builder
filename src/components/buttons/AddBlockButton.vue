@@ -11,7 +11,7 @@
       scale="1.5"
       style="color: white; padding: 5px; background: black; border-radius: 4px"
     />
-    <p class="text-sm font-inter">{{ blockType }}</p>
+    <p class="text-xs lg:text-sm font-inter hidden lg:block">{{ blockType }}</p>
   </div>
 </template>
 
