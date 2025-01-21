@@ -42,8 +42,9 @@
             >
               <DragButton />
 
-              <TextBlock :element="element" />
+              <TextBlock v-if="element.type === 'text'" :element="element" />
               <ImageBlock
+                v-if="element.type === 'image'"
                 :block-id="index"
                 :element="element"
                 @update:modal="updateModal"

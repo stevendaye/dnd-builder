@@ -1,5 +1,5 @@
 <template>
-  <div v-if="element.type === 'text'" class="w-[75%]">
+  <div class="w-[75%]">
     <input
       type="text"
       class="py-4 px-3 bg-[#F3F4F6] w-full text-sm"

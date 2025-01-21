@@ -1,5 +1,5 @@
 <template>
-  <div v-if="element.type === 'image'" class="w-[75%] flex flex-col gap-2 py-4">
+  <div class="w-[75%] flex flex-col gap-2 py-4">
     <div class="size-[35%] relative hover:cursor-pointer group">
       <div
         v-if="element.image"
