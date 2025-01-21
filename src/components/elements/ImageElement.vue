@@ -3,7 +3,7 @@
     <h3 class="text-xs font-InterMedium px-2 hidden lg:block">Media</h3>
     <AddBlockButton
       :icon="`oi-image`"
-      :block-type="`Add Image Element`"
+      :block-type="`Add image block`"
       @update:add="addImageBlock"
     />
   </div>

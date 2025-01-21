@@ -3,7 +3,7 @@
     <h3 class="text-xs font-InterMedium px-2 hidden lg:block">Input</h3>
     <AddBlockButton
       :icon="`co-text`"
-      :block-type="`Add Text Element`"
+      :block-type="`Add text block`"
       @update:add="addTextBlock"
     />
   </div>

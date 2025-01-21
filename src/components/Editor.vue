@@ -4,7 +4,7 @@
       class="w-full md:max-w-[650px] h-screen bg-white overflow-y-auto border"
     >
       <p
-        class="text-xs lg:text-sm font-InterMedium bg-black p-3 text-white relative"
+        class="text-xs lg:text-sm font-InterMedium bg-black p-3 text-white relative rounded-tl-md rounded-tr-md"
       >
         <v-icon
           name="bi-info-circle-fill"
@@ -13,8 +13,8 @@
 
         In case you delete all blocks, you can always add new ones by clicking
         on the <span class="font-InterBlack">Text</span> or
-        <span class="font-InterBlack">Image</span> elements by the left
-        hand-side.
+        <span class="font-InterBlack">Image</span> elements on the left hand
+        side.
       </p>
 
       <div class="rounded-md pt-5 pb-32 px-5">
@@ -36,9 +36,7 @@
         >
           <template #item="{ element, index }">
             <div
-              :class="`flex gap-2 border px-2 py-3 cursor-move rounded-sm bg-white ${
-                element.type === 'text' ? 'items-center' : 'items-start'
-              }`"
+              class="flex gap-2 border px-2 py-3 cursor-move rounded-sm bg-white items-start"
             >
               <DragButton />
 

@@ -1,8 +1,8 @@
 <template>
   <div class="w-[75%]">
-    <input
-      type="text"
-      class="py-4 px-3 bg-[#F3F4F6] w-full text-sm"
+    <textarea
+      rows="3"
+      class="pt-1 pb-3 px-3 bg-white w-full text-sm"
       v-model="element.text"
       placeholder="Campaigns | Email Marketing | Landing Pages | Automation etc..."
     />
