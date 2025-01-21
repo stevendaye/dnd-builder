@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { ComponentPublicInstance } from "vue";
 
 import App from "../src/App.vue";
+import TextBlock from "../src/components/blocks/TextBlock.vue";
 import SaveButton from "../src/components/buttons/SaveButton.vue";
 
 type AppInstance = ComponentPublicInstance<{
@@ -82,6 +83,28 @@ describe("App Component", () => {
 
     // blockId starts from 0
     expect(wrapper.vm.uniqueIdCounter).toBe(wrapper.vm.list.length - 1);
+  });
+
+  it("edits text in the TextBlock component", async () => {
+    const initialText = "Edit text here";
+    const updatedText = "Newsletters and Campaigns";
+
+    const wrapper = mount(TextBlock, {
+      props: {
+        element: {
+          id: 0,
+          type: "text",
+          text: initialText,
+          order: 1,
+        },
+      },
+    });
+
+    const input = wrapper.find("input");
+    await input.setValue(updatedText);
+
+    expect(input.element.value).toBe(updatedText);
+    expect(wrapper.props("element").text).toBe(updatedText);
   });
 
   it("exports the list to JSON format when SaveButton is clicked", async () => {
