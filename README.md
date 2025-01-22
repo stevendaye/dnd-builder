@@ -30,8 +30,9 @@ This solution provides a drag and drop functionality, allowing users to **drag**
 
 ### Run test cases individually
 
-In case you would prefer to run test cases individually. Here are the different test cases you can expect
-At the root of the project in dnd-builder. Run the following commands
+In case you would prefer to run test cases individually. Here are the different test cases you can expect.
+
+At the root of the project in dnd-builder. Run the following commands:
 
 - **npx vitest tests/components/elements/TextElement.test.ts**
 
@@ -45,8 +46,8 @@ At the root of the project in dnd-builder. Run the following commands
 
   - adds a new text block to the list when TextElement is clicked
   - adds a new image block to the list when ImageElement is clicked
-  - edits text in the TextBlock component
-  - exports the list to JSON format when SaveButton is clicked
+  - edits or updates text in the TextBlock component
+  - exports landing page data to JSON format when Save button is clicked
 
 - **npx vitest run tests/components/Editor.test.ts**
 
@@ -54,12 +55,12 @@ At the root of the project in dnd-builder. Run the following commands
   - removes a block and emits the updated list
   - duplicates a block and emits the updated list
   - renders ImageBlock with default image placeholder
-  - opens the modal when clicking on the placeholder image
-  - opens the modal when clicking on the 'Replace image' overlay to change block's image
+  - opens predefined images modal when clicked on the placeholder image in the image block
+  - opens predefined images modal when clicked on the 'Replace image' overlay to change block's image
 
 - **npx vitest tests/components/modals/ImagePickerModal.test.ts**
-  - updates block's image after selecting a new image from the opened modal
   - updates block's image after a new image is selected from the opened modal
+  - closes the modal without selecting an image
 
 ## Completed Requirement
 
@@ -85,4 +86,4 @@ All requirements for this project have been implemented. Nevertheless, because I
 
 - **Help Guide**: Located on the right hand section, this represents a section that serves as a guide on how to use the application. It tells the user how to _drag_, _rearrange_, _duplicate_ and _delete_ blocks. It lists each icon with their description.
 
-### README: To change an image in an image block, hover over the desired image, you will then see the overlay with the text _Change image_. Click to open the image modal again
+### README: To change/update an image in an image block, hover over the desired image, you will then see a transparent overlay on the image with the text '_Change image_'. Click to open the image modal again

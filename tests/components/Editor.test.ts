@@ -148,7 +148,7 @@ describe("Editor Component", () => {
     expect(placeholder.exists()).toBe(true);
   });
 
-  it("opens the modal when clicking on the placeholder image", async () => {
+  it("opens predefined images modal when clicked on the placeholder image in the image block", async () => {
     const wrapper = factory({
       blockId: 1,
       element: {
@@ -165,7 +165,7 @@ describe("Editor Component", () => {
     ]);
   });
 
-  it("opens the modal when clicking on the 'Replace image' overlay to change block's image", async () => {
+  it("opens predefined images modal when clicked on the 'Replace image' overlay to change block's image", async () => {
     const wrapper = factory({
       blockId: 1,
       element: {

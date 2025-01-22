@@ -85,7 +85,7 @@ describe("App Component", () => {
     expect(wrapper.vm.uniqueIdCounter).toBe(wrapper.vm.list.length - 1);
   });
 
-  it("edits text in the TextBlock component", async () => {
+  it("edits or updates text in the TextBlock component", async () => {
     const initialText = "Edit text here";
     const updatedText = "Newsletters and Campaigns";
 
@@ -107,7 +107,7 @@ describe("App Component", () => {
     expect(wrapper.props("element").text).toBe(updatedText);
   });
 
-  it("exports the list to JSON format when SaveButton is clicked", async () => {
+  it("exports landing page data to JSON format when Save button is clicked", async () => {
     const wrapper = mount(App, {
       data() {
         return {
